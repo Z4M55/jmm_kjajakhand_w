@@ -19,7 +19,7 @@ st.markdown("""
     --light:#FFE797;      /* blanco marfil */
     --gold:#D9B95B;       /* oro suave */
     --navy:#1E3A5F;       /* azul profundo */
-    --ink:#2C2C2C;        /* texto gris oscuro */
+    --ink:#1A2A4F;        /* texto gris oscuro */
   }
   html, body, .stApp{
     background: radial-gradient(800px 500px at 10% 0%, var(--sky) 0%, var(--light) 80%);
@@ -89,7 +89,7 @@ st.subheader("✍️ Dibuja un número y ofrece tu mente a Dios con gratitud")
 drawing_mode = "freedraw"
 stroke_width = st.slider("✏️ Grosor del trazo", 1, 30, 12)
 stroke_color = "#1E3A5F"  # azul profundo
-bg_color = "#FFFFF"      # fondo blanco luminoso
+bg_color = "#FFFFFf"      # fondo blanco luminoso
 
 canvas_result = st_canvas(
     fill_color="rgba(255,255,255,0.3)",
@@ -151,6 +151,7 @@ Esta app combina el aprendizaje automático con la reflexión cristiana.
 > “Dios ha puesto su sabiduría en el corazón del hombre.” (Job 38,36)
 """)
 st.sidebar.markdown("Desarrollado con fe y gratitud ✝️")
+
 
 
 
