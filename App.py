@@ -44,7 +44,7 @@ st.markdown("""
   }
   [data-testid="stSidebar"]{
     background: #F7FAFF !important;
-    border-left: 2px solid #1A2A4F !important;
+    border-left: 2px solid #FFFFF !important;
   }
   .blessing{
     padding:12px;
@@ -151,6 +151,7 @@ Esta app combina el aprendizaje automático con la reflexión cristiana.
 > “Dios ha puesto su sabiduría en el corazón del hombre.” (Job 38,36)
 """)
 st.sidebar.markdown("Desarrollado con fe y gratitud ✝️")
+
 
 
 
