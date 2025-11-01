@@ -8,50 +8,55 @@ from streamlit_drawable_canvas import st_canvas
 import datetime
 
 # =============================
-# Estilo e interfaz católica
+# 🎨 Estilo e interfaz católica (nueva paleta)
 # =============================
 st.set_page_config(page_title="✝️ Reconocimiento de Talentos", page_icon="🕊️", layout="centered")
 
 st.markdown("""
 <style>
   :root{
-    --parchment:#F8F3E7;
-    --ink:#3E2F1C;
-    --gold:#C5A253;
-    --maryblue:#274B8A;
+    --sky:#EAF3FB;        /* azul cielo claro */
+    --light:#FDFDFD;      /* blanco marfil */
+    --gold:#D9B95B;       /* oro suave */
+    --navy:#1E3A5F;       /* azul profundo */
+    --ink:#2C2C2C;        /* texto gris oscuro */
   }
   html, body, .stApp{
-    background: radial-gradient(900px 500px at 10% 0%, #fff9ee 0%, var(--parchment) 60%);
+    background: radial-gradient(800px 500px at 10% 0%, var(--sky) 0%, var(--light) 80%);
     color: var(--ink) !important;
   }
   h1, h2, h3, h4, h5, h6{
-    color: var(--maryblue);
-    font-family:"Crimson Text","Georgia",serif;
+    color: var(--navy);
+    font-family: "Crimson Text","Georgia",serif;
+    letter-spacing:.3px;
   }
   .stButton>button{
-    background: linear-gradient(90deg,var(--gold),#e3c77a) !important;
-    color:#3b2d12 !important;
+    background: linear-gradient(90deg, var(--gold), #F4E2A4) !important;
+    color:#2C2C2C !important;
     border:none !important;
-    border-radius:10px !important;
+    border-radius:12px !important;
     font-weight:700 !important;
-    box-shadow:0 2px 10px rgba(197,162,83,.35);
+    box-shadow:0 2px 10px rgba(217,185,91,.35);
   }
-  .stButton>button:hover{filter:brightness(1.07);}
+  .stButton>button:hover{
+    filter:brightness(1.05);
+    box-shadow:0 3px 14px rgba(217,185,91,.45);
+  }
   [data-testid="stSidebar"]{
-    background:#FAF6EC !important;
-    border-left:1px solid #eadfc6 !important;
+    background: #F7FAFF !important;
+    border-left: 2px solid #D1E3F8 !important;
   }
   .blessing{
     padding:12px;
     border-left:4px solid var(--gold);
-    background:#fffdf7;
+    background:#FFFDF5;
     border-radius:6px;
   }
 </style>
 """, unsafe_allow_html=True)
 
 # =============================
-# Modelo de predicción
+# 🧠 Modelo de predicción
 # =============================
 @st.cache_resource
 def predictDigit(image):
@@ -65,27 +70,26 @@ def predictDigit(image):
     return result
 
 # =============================
-# Encabezado
+# 🕊️ Encabezado
 # =============================
-st.title("✝️ Reconocimiento de Talentos — *En tus manos, Señor*")
+st.title("🕊️ Reconocimiento de Talentos — *Luz y Sabiduría Divina*")
 st.markdown("""
-Dios nos ha dado una mente capaz de aprender, crear y reconocer.  
-Hoy, esta inteligencia artificial te invita a **reflexionar sobre el don del conocimiento**,  
-mientras reconoces un número trazado por tus propias manos.  
+Dios nos regaló la capacidad de pensar, crear y reconocer.  
+Esta aplicación no solo lee números, sino que nos recuerda que **toda inteligencia es don del Creador.**
 
-_"Porque el Señor da la sabiduría, de su boca brotan la ciencia y la prudencia."_ (Proverbios 2,6)
+_"El temor del Señor es el principio de la sabiduría."_ (Proverbios 9,10)
 """)
 
 st.divider()
-st.subheader("✍️ Dibuja un número y deja que la sabiduría divina te inspire")
+st.subheader("✍️ Dibuja un número y ofrece tu mente a Dios con gratitud")
 
 # =============================
-# Lienzo
+# ✏️ Lienzo de dibujo
 # =============================
 drawing_mode = "freedraw"
 stroke_width = st.slider("✏️ Grosor del trazo", 1, 30, 12)
-stroke_color = "#FFFFFF"
-bg_color = "#000000"
+stroke_color = "#1E3A5F"  # azul profundo
+bg_color = "#FFFFFF"      # fondo blanco luminoso
 
 canvas_result = st_canvas(
     fill_color="rgba(255,255,255,0.3)",
@@ -99,51 +103,51 @@ canvas_result = st_canvas(
 )
 
 # =============================
-# Botón para predecir
+# 📖 Botón de predicción
 # =============================
-if st.button("📖 Reflexionar sobre mi trazo"):
+if st.button("✨ Reflexionar sobre mi trazo"):
     if canvas_result.image_data is not None:
         input_numpy_array = np.array(canvas_result.image_data)
         input_image = Image.fromarray(input_numpy_array.astype("uint8"), "RGBA")
         input_image.save("prediction_digit.png")
 
         res = predictDigit(input_image)
-        st.success(f"El número que tu mente ha trazado es: **{res}** ✨")
+        st.success(f"El número que trazaste es: **{res}** 🌟")
 
-        # Reflexión católica según el número
+        # Reflexión católica por número
         reflexiones = {
-            0: ("El comienzo", "Todo inicia en Dios, que es el Alfa y el Omega."),
-            1: ("La unidad", "El Señor es uno. Busca la comunión y no la división."),
-            2: ("La cooperación", "Como los discípulos enviados de dos en dos, trabaja en comunidad."),
-            3: ("La Trinidad", "Padre, Hijo y Espíritu Santo te acompañan en toda obra."),
-            4: ("La firmeza", "Edifica tu vida sobre roca firme: la fe en Cristo."),
-            5: ("La gracia", "El número cinco recuerda los dones de Dios que llenan tus manos."),
-            6: ("El trabajo", "Dios bendijo el sexto día con la creación del ser humano. Trabaja con amor."),
-            7: ("La plenitud", "El séptimo día Dios descansó. Aprende a confiar y reposar en Él."),
-            8: ("La eternidad", "El ocho simboliza un nuevo comienzo: Cristo resucitado al amanecer."),
-            9: ("La misión", "Jesús envió a los setenta y dos: lleva su palabra a donde vayas.")
+            0: ("El origen", "Dios es el principio de todo. En Él inicia y termina nuestra historia."),
+            1: ("Unidad", "Así como hay un solo Dios, busca la comunión y la paz."),
+            2: ("Fraternidad", "El Señor envió a sus discípulos de dos en dos. Nunca estás solo."),
+            3: ("La Trinidad", "Padre, Hijo y Espíritu Santo te envuelven en amor eterno."),
+            4: ("Estabilidad", "Dios es la roca firme sobre la que construyes tu vida."),
+            5: ("Gracia", "Tus manos y sentidos son dones que Dios te confía para hacer el bien."),
+            6: ("Servicio", "El sexto día Dios creó al ser humano: trabaja con amor y dignidad."),
+            7: ("Descanso", "El séptimo día Dios descansó: recuerda que el alma también necesita paz."),
+            8: ("Nuevo comienzo", "El octavo día representa la Resurrección. Confía en lo nuevo que Dios hará."),
+            9: ("Misión", "Jesús envió a sus discípulos al mundo. Anuncia su amor donde estés.")
         }
 
-        titulo, mensaje = reflexiones.get(res, ("Misterio", "Dios obra en formas que no siempre comprendemos."))
+        titulo, mensaje = reflexiones.get(res, ("Misterio", "Dios obra de formas que trascienden nuestra comprensión."))
         st.markdown(f"### 🔢 {titulo}")
         st.markdown(f"_{mensaje}_")
 
-        st.markdown("""
-        > “Que todo lo que hagas, lo hagas para gloria de Dios.” (1 Cor 10,31)
-        """)
+        st.markdown("> “Haz todo por amor, nada por fuerza.” — San Francisco de Sales")
         hoy = datetime.date.today().strftime("%d %b %Y")
-        st.markdown(f"<div class='blessing'>Que el Señor bendiga tu mente y tus manos 🕊️ <br><em>{hoy}</em></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='blessing'>Que el Señor bendiga tu mente, tus dones y tu paz interior ☀️<br><em>{hoy}</em></div>", unsafe_allow_html=True)
     else:
         st.warning("✋ Por favor, dibuja un número antes de continuar.")
 
 # =============================
-# Sidebar
+# 📜 Sidebar (información)
 # =============================
-st.sidebar.title("🕊️ Acerca de esta aplicación")
+st.sidebar.title("📜 Acerca de esta aplicación")
 st.sidebar.markdown("""
-Esta aplicación fue inspirada en la idea de que **toda inteligencia proviene de Dios**  
-y puede usarse para **servir, aprender y crecer en humildad**.
+**“Reconocimiento de Talentos — Luz y Sabiduría Divina”**  
+Esta app combina el aprendizaje automático con la reflexión cristiana.
 
-> “No tengan miedo a la ciencia, porque toda verdad viene de Dios.” — San Juan Pablo II  
+💡 *Porque la inteligencia también puede ser oración si la usamos para servir.*
+
+> “Dios ha puesto su sabiduría en el corazón del hombre.” (Job 38,36)
 """)
-st.sidebar.markdown("Desarrollado con gratitud y fe ✝️")
+st.sidebar.markdown("Desarrollado con fe y gratitud ✝️")
